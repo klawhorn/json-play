@@ -25,6 +25,8 @@
   submitButton.setAttribute("value", "submit");
   form.appendChild(submitButton);
 
+
+
   var theForm =document.getElementsByTagName('form')[0];
   theForm.addEventListener('submit', function(event) {
     event.preventDefault();
@@ -34,30 +36,30 @@
 
     var request = new XMLHttpRequest();
 
+    function badgeLoop (array) {
+        var result = '';
+        for (var i = 0; i < array.length-1; i++) {
+          result += array[i].name + ', ';
+        }
+        result += array[array.length-1].name;
+        return result;
+      };
+
+
+
     request.onload = function() {
-      console.log(JSON.parse(this.responseText));
-    };
+      window.studentInfo = (JSON.parse(this.responseText));
+      var badgeNames = badgeLoop(studentInfo.badges);
 
-      request.open("get", "http://teamtreehouse.com/" + usernameInput + ".json");
-      request.send();
-  })
+      var infoForScreen = "This Treehouse Student's name is " + studentInfo.name + ". They have " + studentInfo.badges.length + " Treehouse badge(s). The badge names are " + badgeNames + ".";
+      document.write(infoForScreen);
 
+    }
 
+    request.open("get", "http://teamtreehouse.com/" + usernameInput + ".json");
+    request.send();
 
-  // function badgeLoop (array) {
-    //   for (var i = 0; i < array.length; i++) {
-    //     console.log(array[i].name);
-      // }
-
-    // var badgeNames = badgeLoop(studentInfo.badges);
-    // }
-
-    // document.write(studentInfo.name);
-    // document.write(studentInfo.badges.length);
-    // document.write()
-
-
-
+})
 
 
 
