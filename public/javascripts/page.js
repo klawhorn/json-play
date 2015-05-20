@@ -37,22 +37,24 @@
     var request = new XMLHttpRequest();
 
     function badgeLoop (array) {
-        var result = '';
-        for (var i = 0; i < array.length-1; i++) {
-          result += array[i].name + ', ';
+        for (var i = 0; i < array.length; i++) {
+          var badgeImage = document.createElement('img');
+             badgeImage.setAttribute("src", array[i].icon_url);
+             badgeImage.setAttribute("width", "50px");
+             document.body.appendChild(badgeImage);
+
         }
-        result += array[array.length-1].name;
-        return result;
       };
 
 
 
     request.onload = function() {
       window.studentInfo = (JSON.parse(this.responseText));
-      var badgeNames = badgeLoop(studentInfo.badges);
-
-      var infoForScreen = "This Treehouse Student's name is " + studentInfo.name + ". They have " + studentInfo.badges.length + " Treehouse badge(s). The badge names are " + badgeNames + ".";
-      document.write(infoForScreen);
+      // var badgeNames = badgeLoop(studentInfo.badges);
+      badgeLoop(studentInfo.badges);
+      var results = document.createElement('p');
+      results.innerHTML = "This Treehouse Student's name is " + studentInfo.name + ". They have " + studentInfo.badges.length + " Treehouse badge(s), shown above.";
+      form.appendChild(results);
 
     }
 
@@ -62,8 +64,28 @@
 })
 
 
-
-
+// theForm.addEventListener('submit', function(event) {
+//      event.preventDefault();
+//      var request = new XMLHttpRequest ();
+//      request.onload = function () {
+//          var texxxt = JSON.parse(this.responseText)
+//          alert(this.responseText); //unecessary, knida annoying
+//
+//          //loop over badge array pulled from JSON file
+//          for(var i = 0; i < texxxt.badges.length; i++){
+//              var badgeImage = document.createElement('img');
+//              badgeImage.setAttribute("src", texxxt.badges[i].icon_url);
+//              badgeImage.setAttribute("width", "50px");
+//
+//              document.body.appendChild(badgeImage);
+//          };
+//
+//          //create element for badge count that displays 'i' from badge array loop
+//          var badgeCount = document.createElement('h1');
+//          badgeCount.innerHTML = (inputs[0].value + " has " + i + " badges");
+//          theForm.appendChild(badgeCount);
+//
+//
 
 })();
 
